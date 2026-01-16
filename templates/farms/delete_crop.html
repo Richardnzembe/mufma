@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Crop - MUFMA{% endblock %}
+
+{% block content %}
+<div class="content-wrapper" style="max-width: 600px; margin: 0 auto;">
+    <h1 style="color: var(--error-color); margin-bottom: var(--spacing-md);">🗑 Delete Crop</h1>
+    <p style="color: var(--text-secondary); margin-bottom: var(--spacing-xl);">Are you sure you want to delete this crop? This action cannot be undone.</p>
+
+    <div class="alert alert-warning" style="margin-bottom: var(--spacing-xl);">
+        <h3 style="margin-top: 0; color: var(--warning-color);">Crop Details:</h3>
+        <ul style="margin-bottom: 0;">
+            <li><strong>Name:</strong> {{ crop.name }}</li>
+            <li><strong>Variety:</strong> {{ crop.variety|default:"Not specified" }}</li>
+            <li><strong>Area:</strong> {{ crop.area|default:"Not specified" }} hectares</li>
+            <li><strong>Planted:</strong> {{ crop.planted_date|date:"M d, Y" }}</li>
+            {% if crop.expected_harvest_date %}
+            <li><strong>Expected Harvest:</strong> {{ crop.expected_harvest_date|date:"M d, Y" }}</li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="flex gap-2">
+            <button type="submit" class="btn btn-error btn-lg">Yes, Delete Crop</button>
+            <a href="{% url 'farms:crop_detail' crop.id %}" class="btn btn-outline btn-lg">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

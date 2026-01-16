@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Activity - {{ animal.name }} - MUFMA{% endblock %}
+
+{% block content %}
+<div class="content-wrapper" style="max-width: 600px; margin: 0 auto;">
+    <h1 style="color: var(--secondary-color); margin-bottom: var(--spacing-md);">➕ Add Activity</h1>
+    <p style="color: var(--text-secondary); margin-bottom: var(--spacing-xl);">Add a new activity for <strong>{{ animal.name }}</strong></p>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="activity_type" class="form-label">Activity Type</label>
+            <select 
+                id="activity_type" 
+                name="activity_type" 
+                class="form-control"
+                required
+                onchange="toggleCustomActivity()"
+            >
+                <option value="">Select activity type</option>
+                <option value="feeding">🍽️ Feeding</option>
+                <option value="watering">💧 Watering</option>
+                <option value="milking">🥛 Milking</option>
+                <option value="vaccination">💉 Vaccination</option>
+                <option value="breeding">🐣 Breeding</option>
+                <option value="health_check">🩺 Health Check</option>
+                <option value="other">📝 Other</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="custom_activity_field" style="display: none;">
+            <label for="custom_activity" class="form-label">Custom Activity Type</label>
+            <input 
+                type="text" 
+                id="custom_activity"
+                name="custom_activity" 
+                class="form-control"
+                placeholder="Enter custom activity type"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="date" class="form-label">Date & Time</label>
+            <input 
+                type="datetime-local" 
+                id="date"
+                name="date" 
+                class="form-control"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="status" class="form-label">Status</label>
+            <select 
+                id="status" 
+                name="status" 
+                class="form-control"
+                required
+            >
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="form-label">Description (Optional)</label>
+            <textarea 
+                id="description"
+                name="description" 
+                class="form-control"
+                placeholder="Add any additional details about this activity..."
+                rows="4"
+            ></textarea>
+        </div>
+
+        <div class="flex gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">Save Activity</button>
+            <a href="{% url 'farms:animal_detail' animal.id %}" class="btn btn-outline btn-lg">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+function toggleCustomActivity() {
+    var select = document.getElementById('activity_type');
+    var customField = document.getElementById('custom_activity_field');
+    var customInput = document.getElementById('custom_activity');
+    
+    if (select.value === 'other') {
+        customField.style.display = 'block';
+        customInput.required = true;
+    } else {
+        customField.style.display = 'none';
+        customInput.required = false;
+        customInput.value = '';
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    toggleCustomActivity();
+});
+</script>
+{% endblock %}

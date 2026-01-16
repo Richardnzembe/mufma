@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Animal - MUFMA{% endblock %}
+
+{% block content %}
+<div class="content-wrapper" style="max-width: 600px; margin: 0 auto;">
+    <h1 style="color: var(--secondary-color); margin-bottom: var(--spacing-md);">🐄 Add New Animal</h1>
+    <p style="color: var(--text-secondary); margin-bottom: var(--spacing-xl);">Enter the details of your new animal</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="name" class="form-label">Animal Name</label>
+            <input 
+                type="text" 
+                id="name"
+                name="name" 
+                class="form-control"
+                placeholder="e.g., Bessie, Daisy" 
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="animal_type" class="form-label">Animal Type</label>
+            <select 
+                id="animal_type" 
+                name="animal_type" 
+                class="form-control"
+                required 
+                onchange="toggleOtherInput()"
+            >
+                <option value="">Select animal type</option>
+                <option value="cattle">🐄 Cattle</option>
+                <option value="sheep">🐑 Sheep</option>
+                <option value="goat">🐐 Goat</option>
+                <option value="pig">🐷 Pig</option>
+                <option value="chicken">🐔 Chicken</option>
+                <option value="other">🦎 Other</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="other_animal_type_group" style="display: none;">
+            <label for="other_animal_type" class="form-label">Specify Animal Type</label>
+            <input 
+                type="text" 
+                id="other_animal_type"
+                name="other_animal_type" 
+                class="form-control"
+                placeholder="Enter animal type"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="breed" class="form-label">Breed</label>
+            <input 
+                type="text" 
+                id="breed"
+                name="breed" 
+                class="form-control"
+                placeholder="e.g., Holstein, Merino"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="age" class="form-label">Age (months)</label>
+            <input 
+                type="number" 
+                id="age"
+                name="age" 
+                class="form-control"
+                placeholder="e.g., 24"
+                min="0"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="gender" class="form-label">Gender</label>
+            <select 
+                id="gender" 
+                name="gender" 
+                class="form-control"
+                required
+            >
+                <option value="">Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="tag_number" class="form-label">Tag Number (Optional)</label>
+            <input 
+                type="text" 
+                id="tag_number"
+                name="tag_number" 
+                class="form-control"
+                placeholder="e.g., A001"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="birth_date" class="form-label">Birth Date (Optional)</label>
+            <input 
+                type="date" 
+                id="birth_date"
+                name="birth_date" 
+                class="form-control"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="notes" class="form-label">Notes (Optional)</label>
+            <textarea 
+                id="notes"
+                name="notes" 
+                class="form-control"
+                placeholder="Any additional information about this animal..."
+                rows="4"
+            ></textarea>
+        </div>
+
+        <div class="flex gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">Add Animal</button>
+            <a href="{% url 'farms:home' %}" class="btn btn-outline btn-lg">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleOtherInput() {
+        const select = document.getElementById('animal_type');
+        const otherGroup = document.getElementById('other_animal_type_group');
+        const otherInput = document.getElementById('other_animal_type');
+        
+        if (select.value === 'other') {
+            otherGroup.style.display = 'block';
+            otherInput.required = true;
+        } else {
+            otherGroup.style.display = 'none';
+            otherInput.required = false;
+            otherInput.value = '';
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleOtherInput();
+    });
+</script>
+{% endblock %}

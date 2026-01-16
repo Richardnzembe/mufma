@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Farming App Home</title>
+</head>
+<body>
+    <h1>All Crops</h1>
+    <ul>
+        {% for crop in crops %}
+            <li>
+                <a href="{% url 'crop_detail' crop.id %}">{{ crop.name }}</a> - Farmer: {{ crop.farmer.phone_number }}
+            </li>
+        {% empty %}
+            <li>No crops yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

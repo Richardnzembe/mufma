@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - MUFMA{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <div>
+        <h1 class="dashboard-title">Farm Dashboard</h1>
+        <p style="color: var(--text-secondary);">Manage your crops and animals efficiently</p>
+    </div>
+    <div class="dashboard-actions">
+        <a href="{% url 'farms:add_crop' %}" class="btn btn-primary">➕ Add Crop</a>
+        <a href="{% url 'farms:add_animal' %}" class="btn btn-primary">➕ Add Animal</a>
+    </div>
+</div>
+
+<!-- Stats Overview -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">Total Crops</div>
+        <div class="stat-value">{{ crops|length }}</div>
+    </div>
+    <div class="stat-card" style="border-left-color: var(--secondary-color);">
+        <div class="stat-label">Total Animals</div>
+        <div class="stat-value" style="color: var(--secondary-color);">{{ animals|length }}</div>
+    </div>
+</div>
+
+<!-- Crops Section -->
+<div class="content-wrapper mb-4">
+    <div class="card-header">
+        <h2 class="card-title">🌾 Crops</h2>
+    </div>
+    
+    {% if crops %}
+        <div class="grid grid-3">
+            {% for crop in crops %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="color: var(--primary-color); margin-bottom: var(--spacing-sm);">{{ crop.name }}</h3>
+                        <p style="margin-bottom: var(--spacing-xs);"><strong>Variety:</strong> {{ crop.variety }}</p>
+                        <p style="margin-bottom: var(--spacing-xs);"><strong>Area:</strong> {{ crop.area }} hectares</p>
+                        <p style="margin-bottom: var(--spacing-xs);"><strong>Planted:</strong> {{ crop.planted_date|date:"M d, Y" }}</p>
+                        {% if crop.expected_harvest_date %}
+                            <p style="margin-bottom: var(--spacing-xs);"><strong>Expected Harvest:</strong> {{ crop.expected_harvest_date|date:"M d, Y" }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'farms:crop_detail' crop.id %}" class="btn btn-secondary btn-sm">View Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <p style="margin: 0;">No crops added yet. Start by adding your first crop!</p>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Animals Section -->
+<div class="content-wrapper">
+    <div class="card-header">
+        <h2 class="card-title">🐄 Animals</h2>
+    </div>
+    
+    <!-- Animal Type Filter -->
+    <div style="margin-bottom: var(--spacing-lg);">
+        <h3 style="font-size: var(--font-size-base); color: var(--text-secondary); margin-bottom: var(--spacing-md);">Filter by Type:</h3>
+        <div class="flex flex-wrap gap-2">
+            <a href="{% url 'farms:animals_by_type' 'cattle' %}" class="btn btn-outline btn-sm">🐄 Cattle</a>
+            <a href="{% url 'farms:animals_by_type' 'sheep' %}" class="btn btn-outline btn-sm">🐑 Sheep</a>
+            <a href="{% url 'farms:animals_by_type' 'goat' %}" class="btn btn-outline btn-sm">🐐 Goat</a>
+            <a href="{% url 'farms:animals_by_type' 'pig' %}" class="btn btn-outline btn-sm">🐷 Pig</a>
+            <a href="{% url 'farms:animals_by_type' 'chicken' %}" class="btn btn-outline btn-sm">🐔 Chicken</a>
+            <a href="{% url 'farms:animals_by_type' 'other' %}" class="btn btn-outline btn-sm">🦎 Other</a>
+        </div>
+    </div>
+    
+    {% if animals %}
+        <div class="grid grid-3">
+            {% for animal in animals %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="color: var(--secondary-color); margin-bottom: var(--spacing-sm);">{{ animal.name }}</h3>
+                        <p style="margin-bottom: var(--spacing-xs);"><strong>Type:</strong> {{ animal.get_animal_type_display }}</p>
+                        {% if animal.breed %}
+                            <p style="margin-bottom: var(--spacing-xs);"><strong>Breed:</strong> {{ animal.breed }}</p>
+                        {% endif %}
+                        {% if animal.birth_date %}
+                            <p style="margin-bottom: var(--spacing-xs);"><strong>Birth Date:</strong> {{ animal.birth_date|date:"M d, Y" }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'farms:animal_detail' animal.id %}" class="btn btn-secondary btn-sm">View Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <p style="margin: 0;">No animals added yet. Start by adding your first animal!</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ crop.name }} - MUFMA{% endblock %}
+
+{% block content %}
+<div class="detail-header">
+    <div class="flex justify-between align-center">
+        <h1 class="detail-title">🌾 {{ crop.name }}</h1>
+        <div class="flex gap-sm">
+            <a href="{% url 'farms:edit_crop' crop.id %}" class="btn btn-secondary">✏ Edit</a>
+            <a href="{% url 'farms:delete_crop' crop.id %}" class="btn btn-error" onclick="return confirm('Are you sure you want to delete this crop?')">🗑 Delete</a>
+        </div>
+    </div>
+    <div class="detail-meta">
+        <div class="detail-meta-item">
+            <strong>Variety:</strong> {{ crop.variety }}
+        </div>
+        <div class="detail-meta-item">
+            <strong>Area:</strong> {{ crop.area }} hectares
+        </div>
+        <div class="detail-meta-item">
+            <strong>Planted:</strong> {{ crop.planted_date|date:"M d, Y" }}
+        </div>
+        {% if crop.expected_harvest_date %}
+        <div class="detail-meta-item">
+            <strong>Expected Harvest:</strong> {{ crop.expected_harvest_date|date:"M d, Y" }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if crop.notes %}
+<div class="content-wrapper mb-4">
+    <h3 style="color: var(--secondary-color); margin-bottom: var(--spacing-md);">Notes</h3>
+    <p style="color: var(--text-secondary);">{{ crop.notes }}</p>
+</div>
+{% endif %}
+
+<div class="content-wrapper">
+    <div class="flex justify-between align-center mb-3">
+        <h2 style="color: var(--secondary-color); margin: 0;">Activities & Tasks</h2>
+        <a href="{% url 'farms:add_activity' crop.id %}" class="btn btn-primary">➕ Add Activity</a>
+    </div>
+
+    {% if activities %}
+        <div class="timeline">
+            {% for activity in activities %}
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ activity.date|date:"M d, Y - H:i" }}</div>
+                        <div class="timeline-title">{{ activity.get_activity_type_display }}</div>
+                        
+                        {% if activity.status == 'completed' %}
+                            <span class="badge badge-success">{{ activity.get_status_display }}</span>
+                        {% elif activity.is_overdue %}
+                            <span class="badge badge-error">Overdue</span>
+                        {% else %}
+                            <span class="badge badge-warning">{{ activity.get_status_display }}</span>
+                        {% endif %}
+                        
+                        {% if activity.description %}
+                            <p style="margin-top: var(--spacing-sm); color: var(--text-secondary);">{{ activity.description }}</p>
+                        {% endif %}
+                        
+                        <div style="margin-top: var(--spacing-md); display: flex; gap: var(--spacing-sm);">
+                            {% if activity.status == 'pending' %}
+                                <a href="{% url 'farms:complete_task' activity.id %}" class="btn btn-accent btn-sm">✓ Mark Complete</a>
+                            {% endif %}
+                            <a href="{% url 'farms:delete_task' activity.id %}" class="btn btn-secondary btn-sm" onclick="return confirm('Are you sure you want to delete this activity?')">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <p style="margin: 0;">No activities recorded yet. Add your first activity to track this crop's progress!</p>
+        </div>
+    {% endif %}
+</div>
+
+<div style="margin-top: var(--spacing-xl);">
+    <a href="{% url 'farms:home' %}" class="btn btn-outline">⬅ Back to Dashboard</a>
+</div>
+{% endblock %}

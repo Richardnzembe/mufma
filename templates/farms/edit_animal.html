@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Animal - MUFMA{% endblock %}
+
+{% block content %}
+<div class="content-wrapper" style="max-width: 600px; margin: 0 auto;">
+    <h1 style="color: var(--secondary-color); margin-bottom: var(--spacing-md);">🐄 Edit Animal</h1>
+    <p style="color: var(--text-secondary); margin-bottom: var(--spacing-xl);">Update the details of your animal</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="name" class="form-label">Animal Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="e.g., Bessie, Daisy"
+                value="{{ animal.name }}"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="animal_type" class="form-label">Animal Type</label>
+            <select
+                id="animal_type"
+                name="animal_type"
+                class="form-control"
+                required
+                onchange="toggleOtherInput()"
+            >
+                <option value="">Select animal type</option>
+                <option value="cattle" {% if animal_type_value == 'cattle' %}selected{% endif %}>🐄 Cattle</option>
+                <option value="sheep" {% if animal_type_value == 'sheep' %}selected{% endif %}>🐑 Sheep</option>
+                <option value="goat" {% if animal_type_value == 'goat' %}selected{% endif %}>🐐 Goat</option>
+                <option value="pig" {% if animal_type_value == 'pig' %}selected{% endif %}>🐷 Pig</option>
+                <option value="chicken" {% if animal_type_value == 'chicken' %}selected{% endif %}>🐔 Chicken</option>
+                <option value="other" {% if animal_type_value == 'other' %}selected{% endif %}>🦎 Other</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="other_animal_type_group">
+            <label for="other_animal_type" class="form-label">Specify Animal Type</label>
+            <input
+                type="text"
+                id="other_animal_type"
+                name="other_animal_type"
+                class="form-control"
+                placeholder="Enter animal type"
+                value="{{ other_value }}"
+                {% if is_other %}required{% endif %}
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="breed" class="form-label">Breed</label>
+            <input
+                type="text"
+                id="breed"
+                name="breed"
+                class="form-control"
+                placeholder="e.g., Holstein, Merino"
+                value="{{ animal.breed }}"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="birth_date" class="form-label">Birth Date (Optional)</label>
+            <input
+                type="date"
+                id="birth_date"
+                name="birth_date"
+                class="form-control"
+                value="{% if animal.birth_date %}{{ animal.birth_date|date:'Y-m-d' }}{% endif %}"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="notes" class="form-label">Notes (Optional)</label>
+            <textarea
+                id="notes"
+                name="notes"
+                class="form-control"
+                placeholder="Any additional information about this animal..."
+                rows="4"
+            >{{ animal.notes }}</textarea>
+        </div>
+
+        <div class="flex gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">Update Animal</button>
+            <a href="{% url 'farms:animal_detail' animal.id %}" class="btn btn-outline btn-lg">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleOtherInput() {
+        const select = document.getElementById('animal_type');
+        const otherGroup = document.getElementById('other_animal_type_group');
+        const otherInput = document.getElementById('other_animal_type');
+
+        if (select.value === 'other') {
+            otherGroup.style.display = 'block';
+            otherInput.required = true;
+        } else {
+            otherGroup.style.display = 'none';
+            otherInput.required = false;
+            otherInput.value = '';
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleOtherInput();
+    });
+</script>
+{% endblock %}

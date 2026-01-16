@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ animal_type|title }} Animals - MUFMA{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <div>
+        <h1 class="dashboard-title">{{ animal_type|title }} Animals</h1>
+        <p style="color: var(--text-secondary);">View all your {{ animal_type }} animals</p>
+    </div>
+    <div class="dashboard-actions">
+        <a href="{% url 'farms:add_animal' %}" class="btn btn-primary">➕ Add Animal</a>
+    </div>
+</div>
+
+<!-- Animal Type Filter -->
+<div class="content-wrapper mb-4">
+    <h3 style="font-size: var(--font-size-base); color: var(--text-secondary); margin-bottom: var(--spacing-md);">Filter by Type:</h3>
+    <div class="flex flex-wrap gap-2">
+        <a href="{% url 'farms:animals_by_type' 'cattle' %}" class="btn {% if animal_type == 'cattle' %}btn-primary{% else %}btn-outline{% endif %} btn-sm">🐄 Cattle</a>
+        <a href="{% url 'farms:animals_by_type' 'sheep' %}" class="btn {% if animal_type == 'sheep' %}btn-primary{% else %}btn-outline{% endif %} btn-sm">🐑 Sheep</a>
+        <a href="{% url 'farms:animals_by_type' 'goat' %}" class="btn {% if animal_type == 'goat' %}btn-primary{% else %}btn-outline{% endif %} btn-sm">🐐 Goat</a>
+        <a href="{% url 'farms:animals_by_type' 'pig' %}" class="btn {% if animal_type == 'pig' %}btn-primary{% else %}btn-outline{% endif %} btn-sm">🐷 Pig</a>
+        <a href="{% url 'farms:animals_by_type' 'chicken' %}" class="btn {% if animal_type == 'chicken' %}btn-primary{% else %}btn-outline{% endif %} btn-sm">🐔 Chicken</a>
+        <a href="{% url 'farms:animals_by_type' 'other' %}" class="btn {% if animal_type == 'other' %}btn-primary{% else %}btn-outline{% endif %} btn-sm">🦎 Other</a>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid mb-4">
+    <div class="stat-card" style="border-left-color: var(--secondary-color);">
+        <div class="stat-label">Total {{ animal_type|title }} Animals</div>
+        <div class="stat-value" style="color: var(--secondary-color);">{{ animals.count }}</div>
+    </div>
+</div>
+
+<!-- Animals List -->
+<div class="content-wrapper">
+    {% if animals %}
+        <div class="grid grid-3">
+            {% for animal in animals %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="color: var(--secondary-color); margin-bottom: var(--spacing-sm);">{{ animal.name }}</h3>
+                        <p style="margin-bottom: var(--spacing-xs);"><strong>Type:</strong> {{ animal.get_animal_type_display }}</p>
+                        {% if animal.breed %}
+                            <p style="margin-bottom: var(--spacing-xs);"><strong>Breed:</strong> {{ animal.breed }}</p>
+                        {% endif %}
+                        {% if animal.age %}
+                            <p style="margin-bottom: var(--spacing-xs);"><strong>Age:</strong> {{ animal.age }} months</p>
+                        {% endif %}
+                        {% if animal.gender %}
+                            <p style="margin-bottom: var(--spacing-xs);"><strong>Gender:</strong> {{ animal.get_gender_display }}</p>
+                        {% endif %}
+                        {% if animal.tag_number %}
+                            <p style="margin-bottom: var(--spacing-xs);"><strong>Tag:</strong> {{ animal.tag_number }}</p>
+                        {% endif %}
+                        {% if animal.birth_date %}
+                            <p style="margin-bottom: var(--spacing-xs);"><strong>Born:</strong> {{ animal.birth_date|date:"M d, Y" }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'farms:animal_detail' animal.id %}" class="btn btn-secondary btn-sm">View Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <p style="margin: 0;">No {{ animal_type }} animals found. Add your first {{ animal_type }} animal!</p>
+        </div>
+    {% endif %}
+</div>
+
+<div style="margin-top: var(--spacing-xl);">
+    <a href="{% url 'farms:home' %}" class="btn btn-outline">⬅ Back to Dashboard</a>
+</div>
+{% endblock %}
