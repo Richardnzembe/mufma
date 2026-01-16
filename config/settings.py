@@ -3,11 +3,14 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key'
+# IMPORTANT: Use environment variable for SECRET_KEY in production
+SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key')  # Default only for local/dev
 
-DEBUG = True
+# PRODUCTION: Turn off debug
+DEBUG = False  # Never leave True in production
 
-ALLOWED_HOSTS = []
+# Add your Render domain here
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mufma.onrender.com']# Replace with your actual Render URL
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -23,11 +26,12 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',  # MUST be first for auth
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # 👈 ADD THIS
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',  # REQUIRED
-    'django.contrib.messages.middleware.MessageMiddleware',    # REQUIRED
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -53,7 +57,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # For Render, you can switch to PostgreSQL later
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
@@ -68,9 +72,18 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Use custom user
 AUTH_USER_MODEL = 'accounts.User'
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

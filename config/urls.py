@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from farms import views as farm_views
 
 urlpatterns = [
@@ -10,3 +12,6 @@ urlpatterns = [
     path('', farm_views.home, name='home'),  # homepage
     path('farms/', include('farms.urls', namespace='farms')),
 ]
+
+# Serve static files during development or when DEBUG=False for testing
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
