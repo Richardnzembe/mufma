@@ -1,17 +1,28 @@
 import os
 from pathlib import Path
+from django.core.management.utils import get_random_secret_key
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# IMPORTANT: Use environment variable for SECRET_KEY in production
+# ==============================
+# SECRET KEY
+# ==============================
+# Use environment variable in production
 SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key')  # Default only for local/dev
 
-# PRODUCTION: Turn off debug
+# ==============================
+# DEBUG
+# ==============================
 DEBUG = False  # Never leave True in production
 
-# Add your Render domain here
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mufma.onrender.com']# Replace with your actual Render URL
+# ==============================
+# ALLOWED HOSTS
+# ==============================
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mufma.onrender.com']  # Replace with your Render domain
 
+# ==============================
+# INSTALLED APPS
+# ==============================
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -24,9 +35,12 @@ INSTALLED_APPS = [
     'farms.apps.FarmsConfig',
 ]
 
+# ==============================
+# MIDDLEWARE
+# ==============================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # 👈 ADD THIS
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serve static files efficiently
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -35,17 +49,23 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# ==============================
+# URLS
+# ==============================
 ROOT_URLCONF = 'config.urls'
 
+# ==============================
+# TEMPLATES
+# ==============================
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # make sure this folder exists
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',  # required for admin
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -55,35 +75,52 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# ==============================
+# DATABASE
+# ==============================
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # For Render, you can switch to PostgreSQL later
+        'ENGINE': 'django.db.backends.sqlite3',  # Can switch to PostgreSQL later
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+# ==============================
+# PASSWORD VALIDATION
+# ==============================
 AUTH_PASSWORD_VALIDATORS = []
 
+# ==============================
+# INTERNATIONALIZATION
+# ==============================
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
 USE_TZ = True
 
+# ==============================
+# STATIC FILES
+# ==============================
 STATIC_URL = '/static/'
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Where collectstatic gathers files
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Local dev static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Use custom user
+# ==============================
+# CUSTOM USER
+# ==============================
 AUTH_USER_MODEL = 'accounts.User'
 
+# ==============================
+# SECURITY / HTTPS
+# ==============================
+# Tell Django it's behind HTTPS proxy (Render handles SSL)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# ==============================
+# DEFAULT AUTO FIELD
+# ==============================
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
