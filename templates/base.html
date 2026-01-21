@@ -25,8 +25,17 @@
           content="{% static 'icons/windows11/Square150x150Logo.scale-100.png' %}">
 
     {% block extra_css %}{% endblock %}
-        <!-- Register service worker for PWA/offline support -->
+        <!-- PWA: install button (hidden until available) -->
+        <style>
+            #install-btn { display: none; position: fixed; right: 20px; bottom: 20px; z-index: 1001; }
+        </style>
+        <a id="install-btn" class="btn btn-primary">Install App</a>
+
+        <!-- Register service worker for PWA/offline support and install UI -->
         <script>
+            let deferredPrompt;
+            const installBtn = document.getElementById('install-btn');
+
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
                     navigator.serviceWorker.register('/service-worker.js').then(function(reg) {
@@ -37,12 +46,25 @@
                 });
             }
 
-            // Simple install prompt handling
-            let deferredPrompt;
             window.addEventListener('beforeinstallprompt', (e) => {
+                // Prevent the mini-infobar from appearing on mobile
                 e.preventDefault();
                 deferredPrompt = e;
-                // Show your install UI here if desired
+                // Show the install button
+                if (installBtn) installBtn.style.display = 'inline-block';
             });
+
+            if (installBtn) {
+                installBtn.addEventListener('click', async () => {
+                    if (!deferredPrompt) return;
+                    // Show the prompt
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log('User response to the install prompt:', outcome);
+                    // Hide the button regardless of the outcome
+                    installBtn.style.display = 'none';
+                    deferredPrompt = null;
+                });
+            }
         </script>
 </head>
