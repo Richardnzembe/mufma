@@ -9,7 +9,9 @@ class Crop(models.Model):
     farmer = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'role': 'farmer'})
     name = models.CharField(max_length=100)
     variety = models.CharField(max_length=100, blank=True, null=True)
-    planted_date = models.DateField(default=timezone.now().date())
+    # Use callable timezone.now so the default is evaluated at instance creation time
+    # Django's DateField will accept a datetime and convert to date portion
+    planted_date = models.DateField(default=timezone.now)
     expected_harvest_date = models.DateField(blank=True, null=True)
     area = models.FloatField(blank=True, null=True, help_text="Area in hectares")
     notes = models.TextField(blank=True, null=True)

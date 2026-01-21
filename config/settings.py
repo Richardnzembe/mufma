@@ -7,8 +7,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ==============================
 # SECRET KEY
 # ==============================
-# Use environment variable in production
-SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key')  # Default only for local/dev
+# Use environment variable in production; otherwise generate a secure key at startup
+# NOTE: For real production deployments, set SECRET_KEY via an environment variable.
+SECRET_KEY = os.environ.get('SECRET_KEY') or get_random_secret_key()
 
 # ==============================
 # DEBUG
@@ -116,9 +117,17 @@ AUTH_USER_MODEL = 'accounts.User'
 # ==============================
 # Tell Django it's behind HTTPS proxy (Render handles SSL)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# Redirect HTTP to HTTPS in production (configurable via env var)
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True') == 'True'
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'True') == 'True'
+CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE', 'True') == 'True'
+
+# HTTP Strict Transport Security (HSTS)
+# Only enable by setting ENABLE_HSTS=True in your environment when you're ready to enforce HSTS
+ENABLE_HSTS = os.environ.get('ENABLE_HSTS', 'False') == 'True'
+SECURE_HSTS_SECONDS = int(os.environ.get('SECURE_HSTS_SECONDS', '0')) if ENABLE_HSTS else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = ENABLE_HSTS and os.environ.get('SECURE_HSTS_INCLUDE_SUBDOMAINS', 'False') == 'True'
+SECURE_HSTS_PRELOAD = ENABLE_HSTS and os.environ.get('SECURE_HSTS_PRELOAD', 'False') == 'True'
 
 # ==============================
 # DEFAULT AUTO FIELD
