@@ -1,66 +1,28 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{% block title %}MUFMA - Multi-Utility Farming Management App{% endblock %}</title>
+
+    <!-- Main CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#0b1c2d">
+
+    <!-- iOS PWA support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="MUFMA">
+    <link rel="apple-touch-icon" href="{% static 'icons/ios/180.png' %}">
+
+    <!-- Windows tile -->
+    <meta name="msapplication-TileColor" content="#0b1c2d">
+    <meta name="msapplication-TileImage"
+          content="{% static 'icons/windows11/Square150x150Logo.scale-100.png' %}">
+
     {% block extra_css %}{% endblock %}
 </head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-container">
-            <div class="logo-container">
-                <div class="logo-icon">
-                    🍃
-                </div>
-                <div class="logo-text">
-                    <h1>MUFMA</h1>
-                    <p class="logo-tagline">Smart Agricultural Crop Management</p>
-                </div>
-            </div>
-            
-            {% if user.is_authenticated %}
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="{% url 'farms:home' %}" {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}>Dashboard</a></li>
-                    <li><a href="{% url 'farms:timeline' %}" {% if request.resolver_match.url_name == 'timeline' %}class="active"{% endif %}>Timeline</a></li>
-                    <li><a href="{% url 'accounts:logout' %}" class="btn btn-secondary btn-sm">Logout</a></li>
-                </ul>
-            </nav>
-            {% else %}
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="{% url 'accounts:login' %}" class="btn btn-outline btn-sm">Login</a></li>
-                    <li><a href="{% url 'accounts:register' %}" class="btn btn-accent btn-sm">Register</a></li>
-                </ul>
-            </nav>
-            {% endif %}
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-container">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-        
-        {% block content %}{% endblock %}
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-text">© 2026 <span class="footer-brand">Richard Nzembe Apps (RNA)</span></p>
-        </div>
-    </footer>
-
-    {% block extra_js %}{% endblock %}
-</body>
-</html>
