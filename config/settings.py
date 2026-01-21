@@ -14,7 +14,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY') or get_random_secret_key()
 # ==============================
 # DEBUG
 # ==============================
-DEBUG = False  # Never leave True in production
+# For local development default to True. In production set the DEBUG env var to 'False'.
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 # ==============================
 # ALLOWED HOSTS
@@ -118,9 +119,10 @@ AUTH_USER_MODEL = 'accounts.User'
 # Tell Django it's behind HTTPS proxy (Render handles SSL)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Redirect HTTP to HTTPS in production (configurable via env var)
-SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True') == 'True'
-SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'True') == 'True'
-CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE', 'True') == 'True'
+# Default to False for local development; set env var to 'True' in production
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'False') == 'True'
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'False') == 'True'
+CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE', 'False') == 'True'
 
 # HTTP Strict Transport Security (HSTS)
 # Only enable by setting ENABLE_HSTS=True in your environment when you're ready to enforce HSTS
