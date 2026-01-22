@@ -35,7 +35,39 @@
     </style>
 </head>
 <body>
-    {% block content %}{% endblock %}
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo-icon">🌱</div>
+                <div class="logo-text">
+                    <h1>MUFMA</h1>
+                    <p class="logo-tagline">Multi-Utility Farming Management App</p>
+                </div>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'farms:home' %}">Dashboard</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                        <li><a href="{% url 'accounts:register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">&copy; 2024 MUFMA - Richard Nzembe Apps. All rights reserved.</p>
+        </div>
+    </footer>
 
     <!-- PWA install button -->
     <a id="install-btn" class="btn btn-primary">Install App</a>
