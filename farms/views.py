@@ -251,3 +251,8 @@ def delete_crop(request, crop_id):
 def animals_by_type(request, animal_type):
     animals = Animal.objects.filter(farmer=request.user, animal_type=animal_type)
     return render(request, "farms/animals_by_type.html", {"animals": animals, "animal_type": animal_type})
+
+
+def offline(request):
+    """Simple offline fallback page used by the service worker."""
+    return render(request, "offline.html")
