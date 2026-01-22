@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Access Denied - MUFMA{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-logo">
+            <div class="auth-logo-icon">⚠️</div>
+            <h1 class="auth-title">Access Denied</h1>
+            <p class="auth-subtitle">You don't have permission to access this page.</p>
+        </div>
+
+        <div class="alert alert-error">
+            <strong>Security Error:</strong> Your request could not be processed due to a security issue. Please try refreshing the page or contact support if the problem persists.
+        </div>
+
+        <div class="text-center">
+            <a href="{% url 'home' %}" class="btn btn-primary">Go Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

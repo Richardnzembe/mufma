@@ -4,44 +4,37 @@
    ======================================== */
 
 /* ========================================
-   CSS VARIABLES - BRAND COLORS
-   ======================================== */
-:root {
-    /* Primary Color - Leaf Green */
-    --primary-color: #2E7D32;
-    --primary-dark: #1B5E20;
-    --primary-light: #4CAF50;
-    
-    /* Secondary Color - Soft Earth Brown */
-    --secondary-color: #8D6E63;
-    --secondary-dark: #6D4C41;
-    --secondary-light: #A1887F;
-    
-    /* Accent Color - Fresh Lime */
-    --accent-color: #A5D6A7;
-    --accent-dark: #81C784;
-    --accent-light: #C8E6C9;
-    
-    /* Background & Neutrals */
-    --bg-color: #F5F7F4;
-    --bg-white: #FFFFFF;
-    --bg-card: #FAFBF9;
-    
-    /* Text Colors */
-    --text-primary: #1B1B1B;
-    --text-secondary: #4F4F4F;
-    --text-light: #757575;
-    --text-white: #FFFFFF;
-    
-    /* Borders & Dividers */
-    --border-color: #E0E0E0;
-    --border-light: #EEEEEE;
-    
-    /* Status Colors */
-    --success-color: #A5D6A7;
-    --warning-color: #FFB74D;
-    --error-color: #E57373;
-    --info-color: #64B5F6;
+    CSS VARIABLES - BRAND COLORS
+    ======================================== */
+ :root {
+     /* Primary Color - Leaf Green */
+     --primary-color: #2E7D32;
+     --primary-dark: #1B5E20;
+
+     /* Secondary Color - Neutral Gray */
+     --secondary-color: #6B7280;
+     --secondary-dark: #374151;
+
+     /* Background & Neutrals */
+     --bg-color: #F9FAFB;
+     --bg-white: #FFFFFF;
+     --bg-card: #F3F4F6;
+
+     /* Text Colors */
+     --text-primary: #111827;
+     --text-secondary: #6B7280;
+     --text-light: #9CA3AF;
+     --text-white: #FFFFFF;
+
+     /* Borders & Dividers */
+     --border-color: #D1D5DB;
+     --border-light: #E5E7EB;
+
+     /* Status Colors */
+     --success-color: #10B981;
+     --warning-color: #F59E0B;
+     --error-color: #EF4444;
+     --info-color: #3B82F6;
     
     /* Shadows */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -190,7 +183,7 @@ a:hover {
 
 .logo-tagline {
     font-size: var(--font-size-xs);
-    color: var(--accent-light);
+    color: var(--text-light);
     margin: 0;
 }
 
@@ -273,16 +266,6 @@ a:hover {
     box-shadow: var(--shadow-md);
 }
 
-.btn-accent {
-    background-color: var(--accent-color);
-    color: var(--text-primary);
-}
-
-.btn-accent:hover {
-    background-color: var(--accent-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
 
 .btn-outline {
     background-color: transparent;
@@ -436,8 +419,8 @@ select.form-control {
 }
 
 .alert-success {
-    background-color: var(--accent-light);
-    border-color: var(--accent-dark);
+    background-color: #ECFDF5;
+    border-color: var(--success-color);
     color: var(--text-primary);
 }
 
@@ -552,7 +535,7 @@ select.form-control {
     top: 0;
     bottom: 0;
     width: 3px;
-    background-color: var(--accent-color);
+    background-color: var(--primary-color);
 }
 
 .timeline-item {
@@ -616,7 +599,7 @@ select.form-control {
 
 .footer-brand {
     font-weight: 600;
-    color: var(--accent-light);
+    color: var(--primary-color);
 }
 
 /* ========================================

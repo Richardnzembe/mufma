@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="content-wrapper" style="max-width: 600px; margin: 0 auto;">
-    <h1 style="color: var(--secondary-color); margin-bottom: var(--spacing-md);">🐄 Edit Animal</h1>
+    <h1 style="color: var(--secondary-color); margin-bottom: var(--spacing-md);">Edit Animal</h1>
     <p style="color: var(--text-secondary); margin-bottom: var(--spacing-xl);">Update the details of your animal</p>
 
     <form method="POST">
@@ -33,12 +33,12 @@
                 onchange="toggleOtherInput()"
             >
                 <option value="">Select animal type</option>
-                <option value="cattle" {% if animal_type_value == 'cattle' %}selected{% endif %}>🐄 Cattle</option>
-                <option value="sheep" {% if animal_type_value == 'sheep' %}selected{% endif %}>🐑 Sheep</option>
-                <option value="goat" {% if animal_type_value == 'goat' %}selected{% endif %}>🐐 Goat</option>
-                <option value="pig" {% if animal_type_value == 'pig' %}selected{% endif %}>🐷 Pig</option>
-                <option value="chicken" {% if animal_type_value == 'chicken' %}selected{% endif %}>🐔 Chicken</option>
-                <option value="other" {% if animal_type_value == 'other' %}selected{% endif %}>🦎 Other</option>
+                <option value="cattle" {% if animal_type_value == 'cattle' %}selected{% endif %}>Cattle</option>
+                <option value="sheep" {% if animal_type_value == 'sheep' %}selected{% endif %}>Sheep</option>
+                <option value="goat" {% if animal_type_value == 'goat' %}selected{% endif %}>Goat</option>
+                <option value="pig" {% if animal_type_value == 'pig' %}selected{% endif %}>Pig</option>
+                <option value="chicken" {% if animal_type_value == 'chicken' %}selected{% endif %}>Chicken</option>
+                <option value="other" {% if animal_type_value == 'other' %}selected{% endif %}>Other</option>
             </select>
         </div>
 
