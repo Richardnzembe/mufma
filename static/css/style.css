@@ -8,34 +8,29 @@
     CSS VARIABLES - ENHANCED BRAND COLORS
     ======================================== */
 :root {
-    /* Primary Color - Enhanced Leaf Green with better contrast */
+    /* Primary Color - Enhanced Leaf Green with Gradient Support */
     --primary-color: #2E7D32;
     --primary-light: #4CAF50;
     --primary-dark: #1B5E20;
-    --primary-extra-dark: #0F3A11;
-    --primary-text: #FFFFFF; /* White text on primary backgrounds */
     --primary-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     
     /* Secondary Color - Enhanced Neutrals */
     --secondary-color: #5D6B7E;
     --secondary-light: #8A95A6;
     --secondary-dark: #374151;
-    --secondary-text: #FFFFFF; /* White text on secondary backgrounds */
     
     /* Background & Neutrals - Softer Palette */
     --bg-color: #F8FAFC;
     --bg-white: #FFFFFF;
     --bg-card: #F1F5F9;
     --bg-hover: #E8F5E9;
-    --bg-light-green: #F0F9F0;
     
     /* Text Colors - Better Contrast */
-    --text-primary: #1F2937; /* Dark gray for high contrast on light backgrounds */
-    --text-secondary: #4B5563; /* Medium gray */
-    --text-light: #6B7280; /* Light gray */
-    --text-white: #FFFFFF; /* White for dark backgrounds */
-    --text-muted: #9CA3AF; /* Muted text */
-    --text-on-green: #FFFFFF; /* Always white on green backgrounds */
+    --text-primary: #1F2937;
+    --text-secondary: #4B5563;
+    --text-light: #6B7280;
+    --text-white: #FFFFFF;
+    --text-muted: #9CA3AF;
     
     /* Borders & Dividers - Subtle */
     --border-color: #E2E8F0;
@@ -45,22 +40,17 @@
     /* Status Colors - Enhanced */
     --success-color: #10B981;
     --success-light: #D1FAE5;
-    --success-dark: #059669;
     --warning-color: #F59E0B;
     --warning-light: #FEF3C7;
-    --warning-dark: #D97706;
     --error-color: #EF4444;
     --error-light: #FEE2E2;
-    --error-dark: #DC2626;
     --info-color: #3B82F6;
     --info-light: #DBEAFE;
-    --info-dark: #2563EB;
     
-    /* Danger/Delete Color - Professional Red with better contrast */
+    /* Danger/Delete Color - Professional Red */
     --danger-color: #DC2626;
     --danger-dark: #B91C1C;
     --danger-light: #FEE2E2;
-    --danger-text: #FFFFFF; /* White text on danger backgrounds */
     
     /* Shadows - Modern & Subtle */
     --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
@@ -87,7 +77,7 @@
     --radius-full: 50%;
     
     /* Typography - Modern Font Stack */
-    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --font-mono: 'SF Mono', 'Roboto Mono', Consolas, monospace;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
@@ -146,7 +136,7 @@ body {
 }
 
 /* ========================================
-   TYPOGRAPHY - ENHANCED WITH BETTER CONTRAST
+   TYPOGRAPHY - ENHANCED
    ======================================== */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
@@ -166,7 +156,7 @@ h1 {
 
 h2 {
     font-size: var(--font-size-3xl);
-    color: var(--text-primary);
+    color: var(--secondary-dark);
     position: relative;
     padding-bottom: var(--spacing-sm);
 }
@@ -190,7 +180,6 @@ h3 {
 h4 {
     font-size: var(--font-size-xl);
     font-weight: 600;
-    color: var(--text-primary);
 }
 
 p {
@@ -373,7 +362,7 @@ a.underline:hover::after {
 }
 
 /* ========================================
-   BUTTONS - ENHANCED WITH BETTER CONTRAST
+   BUTTONS - ENHANCED WITH BETTER DANGER COLOR
    ======================================== */
 .btn {
     display: inline-flex;
@@ -412,24 +401,20 @@ a.underline:hover::after {
     height: 300px;
 }
 
-/* Primary Button - Green with white text */
 .btn-primary {
     background: var(--primary-gradient);
-    color: var(--text-on-green);
+    color: var(--text-white);
     box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);
-    color: var(--text-on-green);
 }
 
-/* Secondary Button - Neutral with white text */
 .btn-secondary {
     background-color: var(--secondary-color);
-    color: var(--secondary-text);
+    color: var(--text-white);
     box-shadow: 0 4px 12px rgba(93, 107, 126, 0.2);
 }
 
@@ -437,28 +422,25 @@ a.underline:hover::after {
     background-color: var(--secondary-dark);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(93, 107, 126, 0.3);
-    color: var(--secondary-text);
 }
 
-/* DANGER BUTTON - Professional Red with white text (IMPROVED CONTRAST) */
+/* ENHANCED DANGER BUTTON - Professional Red */
 .btn-danger {
     background: linear-gradient(135deg, var(--danger-color) 0%, var(--danger-dark) 100%);
-    color: var(--danger-text);
+    color: var(--text-white);
     box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
 }
 
 .btn-danger:hover {
-    background: linear-gradient(135deg, #C53030 0%, #9B2C2C 100%);
+    background: linear-gradient(135deg, var(--danger-dark) 0%, #991B1B 100%);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
-    color: var(--danger-text);
 }
 
 .btn-danger:active {
     transform: translateY(0);
 }
 
-/* Success Button - Green variant */
 .btn-success {
     background-color: var(--success-color);
     color: var(--text-white);
@@ -466,34 +448,21 @@ a.underline:hover::after {
 }
 
 .btn-success:hover {
-    background-color: var(--success-dark);
+    background-color: #0DA673;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
-    color: var(--text-white);
 }
 
-/* Outline Button - For cards with green backgrounds */
 .btn-outline {
-    background-color: transparent;
-    border: 2px solid var(--bg-white);
-    color: var(--bg-white);
-}
-
-.btn-outline:hover {
-    background: var(--bg-white);
-    color: var(--primary-color);
-    border-color: transparent;
-}
-
-.btn-outline-dark {
     background-color: transparent;
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
 }
 
-.btn-outline-dark:hover {
-    background: var(--primary-color);
+.btn-outline:hover {
+    background: var(--primary-gradient);
     color: var(--text-white);
+    border-color: transparent;
 }
 
 .btn-sm {
@@ -529,103 +498,6 @@ a.underline:hover::after {
 }
 
 /* ========================================
-   ANIMAL BOARD / DASHBOARD CARDS - FIXED CONTRAST
-   ======================================== */
-.animal-board {
-    background-color: var(--bg-white);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
-    margin-bottom: var(--spacing-md);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    transition: all var(--transition-base);
-}
-
-.animal-board:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--primary-light);
-}
-
-.animal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: var(--spacing-md);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 1px solid var(--border-light);
-}
-
-.animal-name {
-    font-size: var(--font-size-xl);
-    font-weight: 700;
-    color: var(--text-primary) !important; /* Force dark color for contrast */
-    margin: 0;
-}
-
-.animal-type {
-    display: inline-block;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background-color: var(--primary-light);
-    color: var(--text-on-green) !important; /* White text on green */
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    margin-top: var(--spacing-xs);
-}
-
-.animal-details {
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-md);
-    line-height: 1.6;
-}
-
-.animal-actions {
-    display: flex;
-    gap: var(--spacing-sm);
-    justify-content: flex-end;
-    padding-top: var(--spacing-md);
-    border-top: 1px solid var(--border-light);
-}
-
-/* Green background boards/cards - Special styling */
-.board-green {
-    background: var(--primary-gradient);
-    color: var(--text-on-green);
-    border: none;
-}
-
-.board-green .animal-name,
-.board-green .animal-type,
-.board-green .animal-details,
-.board-green .text-primary,
-.board-green .text-secondary,
-.board-green .text-light {
-    color: var(--text-on-green) !important; /* Force white text on green backgrounds */
-}
-
-.board-green .animal-type {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: var(--text-on-green);
-}
-
-.board-green .animal-actions {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Stats card with green background */
-.stat-card-green {
-    background: var(--primary-gradient);
-    border-left: 5px solid rgba(255, 255, 255, 0.3);
-}
-
-.stat-card-green .stat-label,
-.stat-card-green .stat-value,
-.stat-card-green .stat-change {
-    color: var(--text-on-green) !important;
-}
-
-/* ========================================
    FORMS - ENHANCED
    ======================================== */
 .form-group {
@@ -636,7 +508,7 @@ a.underline:hover::after {
 .form-label {
     display: block;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     margin-bottom: var(--spacing-sm);
     font-size: var(--font-size-sm);
     transition: color var(--transition-fast);
@@ -709,7 +581,7 @@ select.form-control {
 }
 
 /* ========================================
-   CARDS - ENHANCED WITH BETTER CONTRAST
+   CARDS - ENHANCED
    ======================================== */
 .card {
     background-color: var(--bg-white);
@@ -778,27 +650,6 @@ select.form-control {
     border-color: var(--danger-color);
 }
 
-/* Cards with green backgrounds */
-.card-green {
-    background: var(--primary-gradient);
-    color: var(--text-on-green);
-    border: none;
-}
-
-.card-green .card-title,
-.card-green .card-subtitle,
-.card-green .card-body {
-    color: var(--text-on-green) !important;
-}
-
-.card-green .card-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.card-green .card-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 /* ========================================
    GRID SYSTEM - ENHANCED
    ======================================== */
@@ -860,13 +711,11 @@ select.form-control {
 .alert-title {
     font-weight: 600;
     margin-bottom: var(--spacing-xs);
-    color: var(--text-primary);
 }
 
 .alert-message {
     font-size: var(--font-size-sm);
     opacity: 0.9;
-    color: var(--text-secondary);
 }
 
 .alert-success {
@@ -912,12 +761,12 @@ select.form-control {
 
 .badge-primary {
     background: var(--primary-gradient);
-    color: var(--text-on-green);
+    color: var(--text-white);
 }
 
 .badge-secondary {
     background-color: var(--secondary-color);
-    color: var(--secondary-text);
+    color: var(--text-white);
 }
 
 .badge-success {
@@ -932,7 +781,7 @@ select.form-control {
 
 .badge-danger {
     background-color: var(--danger-color);
-    color: var(--danger-text);
+    color: var(--text-white);
 }
 
 .badge-pill {
@@ -969,7 +818,7 @@ select.form-control {
     font-size: var(--font-size-sm);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: var(--text-on-green);
+    color: var(--text-white);
     border-bottom: none;
 }
 
@@ -1058,7 +907,7 @@ select.form-control {
 
 .timeline-title {
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--secondary-color);
     margin-bottom: var(--spacing-xs);
     font-size: var(--font-size-lg);
 }
@@ -1138,7 +987,109 @@ select.form-control {
 }
 
 /* ========================================
-   DASHBOARD / HOME - ENHANCED WITH BETTER CONTRAST
+   AUTH PAGES - ENHANCED
+   ======================================== */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    background: var(--primary-gradient);
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.3;
+    animation: float 20s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(30px, 30px) rotate(360deg);
+    }
+}
+
+.auth-card {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-3xl);
+    box-shadow: var(--shadow-xl);
+    max-width: 450px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    animation: authSlideIn 0.6s ease-out;
+}
+
+@keyframes authSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.auth-logo {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.auth-logo-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-gradient);
+    border-radius: var(--radius-xl);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    color: var(--text-white);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.auth-title {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-2xl);
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.6;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-light);
+}
+
+/* ========================================
+   DASHBOARD / HOME - ENHANCED
    ======================================== */
 .dashboard-header {
     display: flex;
@@ -1150,7 +1101,7 @@ select.form-control {
 }
 
 .dashboard-title {
-    color: var(--text-primary);
+    color: var(--primary-color);
     font-size: var(--font-size-3xl);
 }
 
@@ -1199,7 +1150,7 @@ select.form-control {
     align-items: center;
     justify-content: center;
     font-size: var(--font-size-xl);
-    color: var(--text-on-green);
+    color: var(--text-white);
     flex-shrink: 0;
 }
 
@@ -1219,7 +1170,7 @@ select.form-control {
 .stat-value {
     font-size: var(--font-size-2xl);
     font-weight: 800;
-    color: var(--text-primary);
+    color: var(--primary-color);
     line-height: 1.2;
 }
 
@@ -1237,34 +1188,12 @@ select.form-control {
     color: var(--danger-color);
 }
 
-/* Stats card with green background */
-.stat-card-green {
-    background: var(--primary-gradient);
-    border-left: 5px solid rgba(255, 255, 255, 0.3);
-}
-
-.stat-card-green .stat-label {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.stat-card-green .stat-value {
-    color: var(--text-on-green);
-}
-
-.stat-card-green .stat-change.positive {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.stat-card-green .stat-change.negative {
-    color: #FFBABA;
-}
-
 /* ========================================
    DETAIL PAGES - ENHANCED
    ======================================== */
 .detail-header {
     background: var(--primary-gradient);
-    color: var(--text-on-green);
+    color: var(--text-white);
     padding: var(--spacing-2xl);
     border-radius: var(--radius-xl);
     margin-bottom: var(--spacing-2xl);
@@ -1272,7 +1201,7 @@ select.form-control {
 }
 
 .detail-title {
-    color: var(--text-on-green);
+    color: var(--text-white);
     margin-bottom: var(--spacing-sm);
     font-size: var(--font-size-3xl);
 }
@@ -1312,7 +1241,7 @@ select.form-control {
 }
 
 .detail-section-title {
-    color: var(--text-primary);
+    color: var(--secondary-color);
     border-bottom: 2px solid var(--border-light);
     padding-bottom: var(--spacing-md);
     margin-bottom: var(--spacing-lg);
@@ -1337,26 +1266,6 @@ select.form-control {
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-left { text-align: left; }
-
-/* Text color utilities */
-.text-primary { color: var(--text-primary) !important; }
-.text-secondary { color: var(--text-secondary) !important; }
-.text-light { color: var(--text-light) !important; }
-.text-white { color: var(--text-white) !important; }
-.text-danger { color: var(--danger-color) !important; }
-.text-success { color: var(--success-color) !important; }
-.text-warning { color: var(--warning-color) !important; }
-.text-info { color: var(--info-color) !important; }
-
-/* Background color utilities */
-.bg-primary { background: var(--primary-gradient) !important; color: var(--text-on-green) !important; }
-.bg-secondary { background-color: var(--secondary-color) !important; color: var(--secondary-text) !important; }
-.bg-success { background-color: var(--success-color) !important; color: var(--text-white) !important; }
-.bg-danger { background-color: var(--danger-color) !important; color: var(--danger-text) !important; }
-.bg-warning { background-color: var(--warning-color) !important; color: var(--text-primary) !important; }
-.bg-info { background-color: var(--info-color) !important; color: var(--text-white) !important; }
-.bg-white { background-color: var(--bg-white) !important; color: var(--text-primary) !important; }
-.bg-light { background-color: var(--bg-card) !important; color: var(--text-primary) !important; }
 
 .mt-0 { margin-top: 0; }
 .mt-1 { margin-top: var(--spacing-sm); }
@@ -1568,16 +1477,9 @@ select.form-control {
         padding: var(--spacing-md);
     }
     
-    /* Animal board responsive */
-    .animal-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-sm);
-    }
-    
-    .animal-actions {
-        justify-content: flex-start;
-        width: 100%;
+    .auth-card {
+        padding: var(--spacing-xl);
+        margin: var(--spacing-md);
     }
 }
 
@@ -1652,6 +1554,11 @@ select.form-control {
         left: calc(-1 * var(--spacing-lg) - 6px);
     }
     
+    .auth-card {
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-lg);
+    }
+    
     .stat-card {
         flex-direction: column;
         text-align: center;
@@ -1662,19 +1569,6 @@ select.form-control {
         width: 50px;
         height: 50px;
         font-size: var(--font-size-lg);
-    }
-    
-    /* Animal board mobile */
-    .animal-board {
-        padding: var(--spacing-md);
-    }
-    
-    .animal-actions {
-        flex-direction: column;
-    }
-    
-    .animal-actions .btn {
-        width: 100%;
     }
 }
 
@@ -1704,13 +1598,11 @@ select.form-control {
         --text-light: #94A3B8;
         --border-color: #475569;
         --border-light: #64748B;
-        --text-on-green: #FFFFFF; /* Still white on green backgrounds */
     }
     
     .card,
     .content-wrapper,
-    .stat-card,
-    .animal-board {
+    .stat-card {
         background-color: var(--bg-white);
     }
     
@@ -1723,14 +1615,6 @@ select.form-control {
         color: var(--text-primary);
         border-color: var(--border-color);
     }
-    
-    /* Green backgrounds stay green in dark mode but text remains white */
-    .board-green,
-    .card-green,
-    .stat-card-green {
-        background: var(--primary-gradient);
-        color: var(--text-on-green);
-    }
 }
 
 /* ========================================
@@ -1741,8 +1625,7 @@ select.form-control {
     .footer,
     .btn,
     .nav-menu,
-    .dashboard-actions,
-    .animal-actions {
+    .dashboard-actions {
         display: none !important;
     }
     
@@ -1766,22 +1649,5 @@ select.form-control {
     a {
         color: black !important;
         text-decoration: underline !important;
-    }
-    
-    /* Ensure text is readable when printing */
-    .board-green,
-    .card-green,
-    .stat-card-green {
-        background: white !important;
-        color: black !important;
-        border: 1px solid #ccc !important;
-    }
-    
-    .board-green .animal-name,
-    .board-green .animal-type,
-    .board-green .animal-details,
-    .card-green .card-title,
-    .card-green .card-body {
-        color: black !important;
     }
 }
