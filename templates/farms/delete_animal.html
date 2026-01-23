@@ -24,7 +24,7 @@
     <form method="POST">
         {% csrf_token %}
         <div class="flex gap-2">
-            <button type="submit" class="btn btn-error btn-lg">Yes, Delete Animal</button>
+            <button type="submit" class="btn btn-danger btn-lg">Yes, Delete Animal</button>
             <a href="{% url 'farms:animal_detail' animal.id %}" class="btn btn-outline btn-lg">Cancel</a>
         </div>
     </form>

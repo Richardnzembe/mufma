@@ -37,7 +37,7 @@
             {% for crop in crops %}
                 <div class="card">
                     <div class="card-body">
-                        <h3 style="color: var(--primary-color); margin-bottom: var(--spacing-sm);">{{ crop.name }}</h3>
+                        <h3 style="color: var(--text-primary); margin-bottom: var(--spacing-sm);">{{ crop.name }}</h3>
                         <p style="margin-bottom: var(--spacing-xs);"><strong>Variety:</strong> {{ crop.variety }}</p>
                         <p style="margin-bottom: var(--spacing-xs);"><strong>Area:</strong> {{ crop.area }} hectares</p>
                         <p style="margin-bottom: var(--spacing-xs);"><strong>Planted:</strong> {{ crop.planted_date|date:"M d, Y" }}</p>
@@ -82,7 +82,7 @@
             {% for animal in animals %}
                 <div class="card">
                     <div class="card-body">
-                        <h3 style="color: var(--secondary-color); margin-bottom: var(--spacing-sm);">{{ animal.name }}</h3>
+                        <h3 style="color: var(--text-primary); margin-bottom: var(--spacing-sm);">{{ animal.name }}</h3>
                         <p style="margin-bottom: var(--spacing-xs);"><strong>Type:</strong> {{ animal.get_animal_type_display }}</p>
                         {% if animal.breed %}
                             <p style="margin-bottom: var(--spacing-xs);"><strong>Breed:</strong> {{ animal.breed }}</p>

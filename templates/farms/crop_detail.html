@@ -8,7 +8,7 @@
         <h1 class="detail-title">🌾 {{ crop.name }}</h1>
         <div class="flex gap-sm">
             <a href="{% url 'farms:edit_crop' crop.id %}" class="btn btn-secondary">✏ Edit</a>
-            <a href="{% url 'farms:delete_crop' crop.id %}" class="btn btn-error" onclick="return confirm('Are you sure you want to delete this crop?')">🗑 Delete</a>
+            <a href="{% url 'farms:delete_crop' crop.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this crop?')">🗑 Delete</a>
         </div>
     </div>
     <div class="detail-meta">
